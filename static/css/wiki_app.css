@@ -1,0 +1,27 @@
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #81D4FA;
+}
+
+#json_data {
+
+}
+
+#json_data table tbody td {
+    font-size: 15px;
+}
+
+.card {
+    width: 500px;
+    margin: 20px auto;
+    text-align: center
+}
+
+.card-header {
+    background-color: #E91E63;
+    color: white;
+}
+
+.card-header p {
+    font-size: 14px;
+}

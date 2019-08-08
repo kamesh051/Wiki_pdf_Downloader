@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title></title>
+	
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        
+        <link rel="stylesheet" href="{% static 'css/wiki_app.css' %}">
+        
+</head>
+<body>
+    <div style="text-align: center;">
+    	<h1>Wikipedia PDF Downloader</h1>
+    	<form action="{% url 'search_view' %}">
+    		<input type="text" name="search_word" placeholder="search here">
+    		<input type="submit" name="search">
+    	</form>
+    </div>
+
+    <div class="card" style="width:1100px;">
+            <div class="card-body" id="json_data">
+            </div>
+        </div>
+
+	<script type="text/javascript">
+		    //To parse the data and generate table based on the data
+        var x = JSON.parse('{{ json_data | escapejs }}');
+        function parseData(data){
+            let html = `
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <th> Tittle </th>
+                    <th> Summary </th>
+                    <th> Download </th>
+                </thead>
+                <tbody>
+            `;
+            for(i=0; i<data.length; i++) {
+                let path = `/article/display/?article=${encodeURIComponent(data[i][0])}`;
+                html = html + `<tr>
+                <td>${data[i][0]}</td>
+                <td>${data[i][1]}</td>
+                <td><a href=${path} id="downloadLink">Download</a></td>
+                </tr>`;
+            }
+            html = html+'</tbody></table>'
+            $('#json_data').html(html);
+        }
+    	parseData(x);
+	</script>
+</body>
+</html>
